@@ -110,6 +110,7 @@ SafeAddString(DUSTMAN_DESTROY_STOLEN, 				"Gestohlene Gegenstände Schwellenwert
 SafeAddString(DUSTMAN_DESTROY_STOLEN_DESC,		"Alle gestohlenen Gegenstände, die als Trödel markiert wurden und einen geringeren Wert, als hier eingestellt wird, besitzen, werden zerstört.", 1)
 SafeAddString(DUSTMAN_DESTROY_STACK,				"Stapelbare Gegenstände ausschließen", 1)
 SafeAddString(DUSTMAN_DESTROY_STACK_DESC,			"Stapelbare Gegenstände mit einem Verkaufswert größer als 0, und geringer als der eingestellte Schwellenwert, werden nicht zerstört.", 1)
+SafeAddString(DUSTMAN_DESTROY_VAL_STACK,  			"Verkaufspreis Schwellenwert StackItems", 1)
  --notifications submenu		
 SafeAddString(DUSTMAN_VERBOSE,						"Meldungen für Trödel", 1)
 SafeAddString(DUSTMAN_VERBOSE_DESC,					"Aktiviert / deaktiviert die Meldung das ein Gegenstand als Trödel markiert, oder zerstört wurde.", 1)

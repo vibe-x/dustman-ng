@@ -926,8 +926,8 @@ function Dustman.CreateSettingsMenu(DustSavedVars, DustMarkAsJunk, defaults)
 				},
 				{
 					type = "dropdown",
-					name = GetString(DUSTMAN_QUALITY_SUPP),
-					tooltip = GetString(DUSTMAN_QUALITY_SUPP_DESC),
+					name = GetString(DUSTMAN_QUALITY),
+					tooltip = GetString(DUSTMAN_QUALITY_DESC),
 					choices = qualityChoices,
 					getFunc = function() return qualityChoices[DustSavedVars.stolenQuality] end,
 					setFunc = function(choice) DustSavedVars.stolenQuality = reverseQualityChoices[choice] end,
@@ -1071,6 +1071,17 @@ function Dustman.CreateSettingsMenu(DustSavedVars, DustMarkAsJunk, defaults)
 					setFunc = function(value) DustSavedVars.destroyValue = value end,
 					disabled = function() return not DustSavedVars.destroy end,
 					default = defaults.destroyValue,
+				},
+				{
+					type = "slider",
+					name = GetString(DUSTMAN_DESTROY_VAL_STACK),
+					tooltip = GetString(DUSTMAN_DESTROY_VAL_STACK),
+					min = 0,
+					max = 200,
+					getFunc = function() return DustSavedVars.destroyValueStack end,
+					setFunc = function(value) DustSavedVars.destroyValueStack = value end,
+					disabled = function() return not DustSavedVars.destroy end,
+					default = defaults.destroyValueStack,
 				},
 				{
 					type = "dropdown",

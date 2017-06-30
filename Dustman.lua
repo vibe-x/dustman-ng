@@ -192,6 +192,8 @@ local defaults = {
 	destroyExcludeStackable = false,
 	destroyValue = 0,
 	destroyQuality = ITEM_QUALITY_NORMAL,
+	destroyValueStack = 0, -- sellprice of stackable item
+	destroyQualityStack = ITEM_QUALITY_NORMAL, -- quality of stackable item
 	destroyStolenValue = 0,
 	destroyStolenQuality = ITEM_QUALITY_NORMAL,
 	--notifications
@@ -489,9 +491,17 @@ local function HandleJunk(bagId, slotId, itemLink, sellPrice, forceDestroy, rule
 
 			local _, maxStack = GetSlotStackSize(bagId, slotId)
 			if isStolen then
-				destroy = quality <= savedVars.destroyStolenQuality and (sellPrice <= savedVars.destroyStolenValue and ((not savedVars.destroyExcludeStackable) or (savedVars.destroyExcludeStackable and maxStack <= 1)))
+				-- DEBUG
+				-- MyPrint("DEBUG1: " .. maxStack)
+				-- MyPrint("DEBUG2: " .. quality .." <=  " ..savedVars.destroyStolenQuality)
+				-- MyPrint("DEBUG3: " .. sellPrice .. " <=  " .. savedVars.destroyStolenValue)
+				destroy = quality <= savedVars.destroyStolenQuality and (sellPrice <= savedVars.destroyStolenValue) --  NOT NEEDED, BECAUSE MOST STOLEN THINGS ARE STACKABLE, SO WE JUST HAVE A VIEW ON PRICE ONLY -- and ((not savedVars.destroyExcludeStackable) or (savedVars.destroyExcludeStackable and maxStack <= 1)))
 			else
-				destroy = quality <= savedVars.destroyQuality and (sellPrice == 0 or (sellPrice <= savedVars.destroyValue and ((not savedVars.destroyExcludeStackable) or (savedVars.destroyExcludeStackable and maxStack <= 1))))
+				-- DEBUG
+				-- MyPrint("DEBUG1: " .. maxStack)
+				-- MyPrint("DEBUG2: " .. quality .." <=  " .. savedVars.destroyQuality)
+				-- MyPrint("DEBUG3: " .. sellPrice .. " <=  " .. savedVars.destroyValueStack)
+				destroy = quality <= savedVars.destroyQuality and (sellPrice == 0 or (sellPrice <= savedVars.destroyValue and ((not savedVars.destroyExcludeStackable) and (sellPrice < savedVars.destroyValueStack and maxStack > 1 and quality <= savedVars.destroyQualityStack))))
 			end
 		end
 
@@ -578,7 +588,7 @@ local function OnInventorySingleSlotUpdate(_, bagId, slotId, isNewItem)
 	equipType ~= EQUIP_TYPE_NECK and equipType ~= EQUIP_TYPE_RING and equipType ~= EQUIP_TYPE_COSTUME and equipType ~= EQUIP_TYPE_INVALID then
 		return
 	--stolen items with no other use then selling to fence
-	elseif savedVars.stolen and IsItemLinkStolen(itemLink) and itemType == ITEMTYPE_TREASURE and equipType == EQUIP_TYPE_INVALID and quality >= savedVars.stolenQuality then
+	elseif savedVars.stolen and IsItemLinkStolen(itemLink) and itemType == ITEMTYPE_TREASURE and equipType == EQUIP_TYPE_INVALID and quality <= savedVars.stolenQuality then
 		HandleJunk(bagId, slotId, itemLink, sellPrice, false, "FENCE")
 		return
 	--trash items

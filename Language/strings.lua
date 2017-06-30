@@ -117,6 +117,7 @@ local strings = {
 	DUSTMAN_DESTROY_STOLEN_DESC = "All stolen items marked as junk, worth less or equal to the selected amount, will be destroyed.",
 	DUSTMAN_DESTROY_STACK = "Exclude stackable items",
 	DUSTMAN_DESTROY_STACK_DESC = "Do not destroy stackable items with sell value more then zero and less then selected value",
+	DUSTMAN_DESTROY_VAL_STACK = "Sell price threshold stackable",
 	--notifications submenu
 	DUSTMAN_VERBOSE = "Notify when handling junk",
 	DUSTMAN_VERBOSE_DESC = "Enable/disable notification that an item has been marked as junk or destroyed.",
